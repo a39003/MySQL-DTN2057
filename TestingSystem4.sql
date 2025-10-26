@@ -97,7 +97,16 @@ WHERE PositionID = (
 SELECT DepartmentID, SUM(PositionID='1') as soluongdev, SUM(PositionID='2') as soluongtest, SUM(PositionID='3') as soluongmaster, SUM(PositionID='4') as soluongpm FROM account GROUP BY DepartmentID;
 
 -- Question 12: Lấy thông tin chi tiết của câu hỏi bao gồm: thông tin cơ bản của question, loại câu hỏi, ai là người tạo ra câu hỏi, câu trả lời là gì, ...
-
+SELECT 
+    q.QuestionID,
+    q.Content AS NoiDungCauHoi,
+    tq.TypeName AS LoaiCauHoi,
+    a.FullName AS NguoiTao,
+    ans.Content AS CauTraLoi
+FROM Question q
+LEFT JOIN TypeQuestion tq ON q.TypeID = tq.TypeID
+LEFT JOIN Account a ON q.CreatorID = a.AccountID
+LEFT JOIN Answer ans ON q.QuestionID = ans.QuestionID;
 
 
 -- Question 13: Lấy ra số lượng câu hỏi của mỗi loại tự luận hay trắc nghiệm
@@ -139,6 +148,14 @@ WHERE AccountID IN (
 );
 
 -- c) Ghép 2 kết quả từ câu a) và câu b) sao cho không có record nào trùng nhau
+SELECT * 
+FROM Account
+WHERE AccountID IN (
+    SELECT AccountID FROM GroupAccount WHERE GroupID = 1
+    UNION
+    SELECT AccountID FROM GroupAccount WHERE GroupID = 2
+);
+
 -- Question 18:
 -- a) Lấy các group có lớn hơn 5 thành viên
 SELECT GroupID
@@ -152,3 +169,15 @@ GROUP BY GroupID
 HAVING COUNT(AccountID) < 7;
 
 -- c) Ghép 2 kết quả từ câu a) và câu b)
+
+SELECT GroupID
+FROM GroupAccount
+GROUP BY GroupID
+HAVING COUNT(AccountID) > 5
+
+UNION
+
+SELECT GroupID
+FROM GroupAccount
+GROUP BY GroupID
+HAVING COUNT(AccountID) < 7;
