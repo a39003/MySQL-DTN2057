@@ -192,7 +192,72 @@ SELECT GroupID
 FROM GroupAccount
 GROUP BY GroupID
 <<<<<<< HEAD
+<<<<<<< HEAD
 HAVING COUNT(AccountID) < 7;
 =======
 HAVING COUNT(AccountID) < 7;
 >>>>>>> df77966 (Nopthem)
+=======
+HAVING COUNT(AccountID) < 7;
+
+
+CREATE OR REPLACE VIEW vw_MaxQuestionUsingExam AS (
+	WITH cte_maxCount as(
+	SELECT count(*) AS SL FROM examquestion ex
+	GROUP BY ex.QuestionID
+	)
+	SELECT ex.QuestionID, q.Content, count(1) COUNT FROM examquestion ex
+	INNER JOIN question q ON ex.QuestionID = q.QuestionID
+	GROUP BY ex.QuestionID
+	HAVING count(1) = (SELECT max(SL) FROM cte_maxCount)
+);
+
+SELECT * FROM vw_MaxQuestionUsingExam;
+
+DROP VIEW vw_MaxQuestionUsingExam;
+
+
+-- Xóa Procedure nếu tồn tại
+DROP PROCEDURE IF EXISTS sp_getAccountInDep;
+-- Khai báo 
+DELIMITER $$
+CREATE PROCEDURE sp_getAccountInDep()
+			BEGIN
+				SELECT * FROM account WHERE DepartmentID =2;
+			END$$
+DELIMITER ;
+
+-- Gọi
+CALL sp_getAccountInDep();
+
+
+
+DELIMITER $$
+CREATE PROCEDURE sp_getAccountInDep(IN in_DepID INT)
+			BEGIN
+				SELECT * FROM account WHERE DepartmentID = in_DepID;
+			END$$
+DELIMITER ;
+
+-- Gọi
+CALL sp_getAccountInDep(3);
+
+
+
+-- Xóa Procedure nếu tồn tại
+DROP PROCEDURE IF EXISTS sp_getAccountByDepID;
+-- Khai báo 
+DELIMITER $$
+CREATE PROCEDURE sp_getAccountByDepID(IN in_DepID INT, OUT out_count INT)
+			BEGIN
+				SELECT COUNT(1) INTO out_count FROM account WHERE DepartmentID = in_DepID;
+			END$$
+DELIMITER ;
+
+-- Gọi
+-- Tạo ra 1 biến-- lưu trữ dữ liệu
+SET @v_Count =0;
+CALL sp_getAccountByDepID(2,@v_Count);
+
+SELECT @v_Count ;
+>>>>>>> 73b107e (Noi\pBai)

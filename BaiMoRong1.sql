@@ -1,6 +1,6 @@
 CREATE DATABASE fresher;
 USE fresher;
-
+DROP TABLE IF EXISTS Trainee;
 CREATE TABLE Trainee (
 	TraineeID TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     FullName  VARCHAR(50) NOT NULL,
@@ -92,3 +92,52 @@ WHERE TIMESTAMPDIFF(YEAR, BirthDate, CURDATE()) > 30;
 
 -- Question 18: Thực tập sinh có TraineeID = 3 được chuyển sang lớp " VTI003". Hãy cập nhật thông tin vào database.
  UPDATE Trainee SET TrainingClass = 'VTI003' WHERE TraineeID = '3';
+ 
+ 
+ -- Question 19: Do có sự nhầm lẫn khi nhập liệu nên thông tin của học sinh số 10 đang bị sai, 
+ -- hãy cập nhật lại tên thành “LeVanA”, điểm ET_IQ =10, điểm ET_Gmath =15, điểm ET_English = 30. 
+ 
+ UPDATE Trainee SET FullName = 'LeVanA', ETIQ =10, ETGmath =15, ETEnglish = 30 WHERE TraineeID = '10';
+ 
+ -- Question 20+21: Đếm xem trong lớp VTI001  có bao nhiêu thực tập sinh.
+ SELECT * FROM Trainee;
+SELECT COUNT(TrainingClass) AS SoLuongSV FROM Trainee WHERE TrainingClass='VTI001';
+
+-- Question 22: Đếm tổng số thực tập sinh trong lớp VTI001 và VTI003 có bao nhiêu thực tập sinh.
+SELECT TrainingClass, COUNT(*) AS SoLuongThucTapSinh
+FROM Trainee
+WHERE TrainingClass IN ('VTI001', 'VTI003')
+GROUP BY TrainingClass;
+
+-- Question 23: Lấy ra số lượng các thực tập sinh theo giới tính: Male, Female, Unknown.
+  SELECT Gender, COUNT(*) AS SoLuongThucTap
+  FROM Trainee
+  WHERE Gender IN ('Male', 'Female', 'Unknown')
+  GROUP BY Gender;
+  
+ -- Question 24 + 25: Lấy ra lớp có lớn hơn 5 thực tập viên
+ SELECT TrainingClass, COUNT(*) AS Soluongtt 
+ FROM Trainee
+ GROUP BY TrainingClass HAVING COUNT(*) > 5 ;
+ 
+ -- Question 26: Lấy ra trường có ít hơn 4 thực tập viên tham gia khóa học
+ 
+  SELECT EvaluationNotes, COUNT(*) AS Soluongtt 
+ FROM Trainee
+ GROUP BY EvaluationNotes HAVING COUNT(*) < 4 ;
+ 
+ -- Question 27: Bước 1: Lấy ra danh sách thông tin ID, Fullname, lớp thực tập viên có lớp 'VTI001'
+	SELECT TraineeID, FullName, TrainingClass FROM Trainee WHERE TrainingClass = 'VTI001';
+ 
+-- Bước 2: Lấy ra danh sách thông tin ID, Fullname, lớp thực tập viên có lớp 'VTI002'
+SELECT TraineeID, FullName, TrainingClass FROM Trainee WHERE TrainingClass = 'VTI002';
+-- Bước 3: Sử dụng UNION để nối 2 kết quả ở bước 1 và 2
+SELECT TraineeID, FullName, TrainingClass FROM Trainee WHERE TrainingClass IN (
+ SELECT TrainingClass FROM Trainee WHERE TrainingClass = 'VTI001'
+ UNION
+ SELECT TrainingClass FROM Trainee WHERE TrainingClass = 'VTI002'
+);
+
+
+
+ 
