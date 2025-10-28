@@ -19,10 +19,18 @@ SELECT * FROM account WHERE CreateDate > '2010-12-20';
 -- Question 3: Viết lệnh để lấy ra tất cả các developer
 SELECT * FROM account WHERE PositionID = (SELECT PositionID FROM Position WHERE PositionName = 'Dev');
 
+SELECT a.AccountID, a.Email, a.FullName, p.PositionName, d.DepartmentName FROM account a 
+INNER JOIN position p on a.PositionID = p.PositionID
+INNER JOIN Department d ON a.DepartmentID = d.DepartmentID
+WHERE PositionName = 'Dev';
 
 -- Question 4: Viết lệnh để lấy ra danh sách các phòng ban có >3 nhân viên
  SELECT DepartmentName FROM Department WHERE DepartmentID 
         IN (SELECT DepartmentID FROM account GROUP BY DepartmentID HAVING COUNT(AccountID) > 3 );
+
+SELECT a.DepartmentID, d.DepartmentName, COUNT(a.DepartmentID) AS sl FROM account a 
+INNER JOIN department d ON a.DepartmentID=d.DepartmentID
+GROUP BY a.DepartmentID HAVING COUNT(a.DepartmentID) >= 1;
 
 -- Question 5: Viết lệnh để lấy ra danh sách câu hỏi được sử dụng trong đề thi nhiều nhất
 SELECT QuestionID, Content FROM Question WHERE QuestionID IN (
@@ -169,7 +177,10 @@ GROUP BY GroupID
 HAVING COUNT(AccountID) < 7;
 
 -- c) Ghép 2 kết quả từ câu a) và câu b)
+<<<<<<< HEAD
 
+=======
+>>>>>>> df77966 (Nopthem)
 SELECT GroupID
 FROM GroupAccount
 GROUP BY GroupID
@@ -180,4 +191,8 @@ UNION
 SELECT GroupID
 FROM GroupAccount
 GROUP BY GroupID
+<<<<<<< HEAD
 HAVING COUNT(AccountID) < 7;
+=======
+HAVING COUNT(AccountID) < 7;
+>>>>>>> df77966 (Nopthem)
