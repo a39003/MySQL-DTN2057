@@ -102,6 +102,25 @@ CALL sp_GroupOrUser('sale');
 -- departmentID: sẽ được cho vào 1 phòng chờ
 -- Sau đó in ra kết quả tạo thành công
 
+DROP PROCEDURE IF EXISTS sp_insertAccount;
+DELIMITER $$
+CREATE PROCEDURE sp_insertAccount
+(	IN var_Email VARCHAR(50),
+	IN var_Fullname VARCHAR(50))
+BEGIN
+	DECLARE v_Username VARCHAR(50) DEFAULT SUBSTRING_INDEX(var_Email, '@', 1);
+	DECLARE v_DepartmentID  TINYINT UNSIGNED DEFAULT 11;
+	DECLARE v_PositionID TINYINT UNSIGNED DEFAULT 1;
+                  DECLARE v_CreateDate DATETIME DEFAULT now();
+    
+	INSERT INTO `account` (`Email`,		 `Username`, 	`FullName`, 		`DepartmentID`,			 `PositionID`, 			`CreateDate`) 
+	VALUES 				  (var_Email,     v_Username,      var_Fullname,          v_DepartmentID,          v_PositionID,         v_CreateDate);
+
+END$$
+DELIMITER ;
+
+Call sp_insertAccount('daonq@viettel.com.vn','Nguyen dao');
+
 
 
 -- Question 8: Viết 1 store cho phép người dùng nhập vào Essay hoặc Multiple-Choice 
@@ -139,6 +158,19 @@ SELECT * FROM Exam WHERE CreateDate <= DATE_SUB(CURDATE(), INTERVAL 3 YEAR);
 -- Question 11: Viết store cho phép người dùng xóa phòng ban bằng cách người dùng nhập vào tên phòng ban 
 -- và các account thuộc phòng ban đó sẽ được chuyển về phòng ban default là phòng ban chờ việc
 
+DROP PROCEDURE IF EXISTS SP_DelDepFromName;
+DELIMITER $$
+CREATE PROCEDURE SP_DelDepFromName(IN var_DepartmentName VARCHAR(30))
+BEGIN
+	DECLARE v_DepartmentID VARCHAR(30) ;
+    SELECT D1.DepartmentID   INTO v_DepartmentID FROM department D1 WHERE D1.DepartmentName = var_DepartmentName;
+	UPDATE `account` A SET A.DepartmentID  = '11' WHERE A.DepartmentID = v_DepartmentID;
+    
+	DELETE FROM department d WHERE d.DepartmentName = var_DepartmentName;
+END$$
+DELIMITER ;
+
+Call SP_DelDepFromName('Marketing');
 
 
 
@@ -158,3 +190,33 @@ CALL sp_CreateDateQuestion;
 -- Question 13: Viết store để in ra mỗi tháng có bao nhiêu câu hỏi được tạo trong 6 tháng gần đây nhất
 -- (Nếu tháng nào không có thì sẽ in ra là "không có câu hỏi nào trong tháng")
 
+DROP PROCEDURE IF EXISTS sp_CountQuesBefore6Month;
+DELIMITER $$
+CREATE PROCEDURE sp_CountQuesBefore6Month()
+BEGIN
+	WITH CTE_Talbe_6MonthBefore AS (
+			SELECT MONTH(DATE_SUB(NOW(), INTERVAL 5 MONTH)) AS MONTH, YEAR(DATE_SUB(NOW(), INTERVAL 5 MONTH)) AS `YEAR`
+			UNION
+			SELECT MONTH(DATE_SUB(NOW(), INTERVAL 4 MONTH)) AS MONTH, YEAR(DATE_SUB(NOW(), INTERVAL 4 MONTH)) AS `YEAR`
+			UNION
+			SELECT MONTH(DATE_SUB(NOW(), INTERVAL 3 MONTH)) AS MONTH, YEAR(DATE_SUB(NOW(), INTERVAL 3 MONTH)) AS `YEAR`
+			UNION
+			SELECT MONTH(DATE_SUB(NOW(), INTERVAL 2 MONTH)) AS MONTH, YEAR(DATE_SUB(NOW(), INTERVAL 2 MONTH)) AS `YEAR`
+			UNION			
+            SELECT MONTH(DATE_SUB(NOW(), INTERVAL 1 MONTH)) AS MONTH, YEAR(DATE_SUB(NOW(), INTERVAL 1 MONTH)) AS `YEAR`
+			UNION
+			SELECT MONTH(NOW()) AS MONTH, YEAR(NOW()) AS `YEAR`
+)
+		SELECT M.MONTH,M.YEAR, CASE 
+				WHEN COUNT(QuestionID) = 0 THEN 'không có câu hỏi nào trong tháng'
+                ELSE COUNT(QuestionID)
+				END AS SL
+		FROM CTE_Talbe_6MonthBefore M
+		LEFT JOIN (SELECT * FROM question where CreateDate >= DATE_SUB(NOW(), INTERVAL 6 MONTH) AND CreateDate <= now()) AS Sub_Question ON M.MONTH = MONTH(CreateDate)
+		GROUP BY M.MONTH
+		ORDER BY M.MONTH ASC;
+END$$
+DELIMITER ;
+
+-- Run: 
+CALL sp_CountQuesBefore6Month;
