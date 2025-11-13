@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import com.vti.Account.account;
 import com.vti.Departemnt.departemnt;
 import com.vti.Group.group;
+import com.vti.Position.PositionName;
 import com.vti.Position.position;
 
 public class program {
@@ -27,15 +28,15 @@ public class program {
 		// ====== Position ======
 		position Position1 = new position();
 		Position1.PositionID = 1;
-		Position1.PositionName = "Dev";
+		Position1.name = PositionName.Dev;
 
 		position Position2 = new position();
 		Position2.PositionID = 2;
-		Position2.PositionName = "Tester";
+		Position2.name = PositionName.PM;
 
 		position Position3 = new position();
 		Position3.PositionID = 3;
-		Position3.PositionName = "PM";
+		Position3.name = PositionName.Scrum_Master;
 
 		position[] Positions = { Position1, Position2, Position3 };
 
@@ -91,9 +92,9 @@ public class program {
 		group[] Groups = { Group1, Group2, Group3 };
 
 		System.out.println("1 Department: " + Departemnts[1].DepartmentName);
-		System.out.println("2 Position: " + Positions[0].PositionName);
+		System.out.println("2 Position: " + Positions[0].name);
 		System.out.println("3 Account: " + Accounts[2].Email + " " + Accounts[2].FullName + " - Department: "
-				+ Accounts[2].Departemnt.DepartmentName + " - Position: " + Accounts[2].Position.PositionName + " "
+				+ Accounts[2].Departemnt.DepartmentName + " - Position: " + Accounts[2].Position.name + " "
 				+ Accounts[2].CreateDate);
 		System.out.println("4 Group: " + Groups[0].GroupName + " - Creator: " + Groups[0].Creator.FullName + " "
 				+ Groups[0].CreateDate);
