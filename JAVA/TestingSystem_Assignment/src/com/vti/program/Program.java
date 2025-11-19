@@ -178,6 +178,8 @@ public class Program {
 			System.out.println("Nhóm có hai thành viên");
 		} else if (soluongacc == 3) {
 			System.out.println("Nhóm có ba thành viên");
+		} else {
+			System.out.println("Nhóm có nhiều thành viên");
 		}
 
 		// Question 6: Sử dụng switch case để làm lại Question 2
@@ -300,5 +302,148 @@ public class Program {
 			}
 
 		}
+
+		// Question 16: Làm lại các Question ở phần FOR bằng cách sử dụng WHILE kết hợp
+		// với
+		// lệnh break, continue
+		System.out.println("-----Question16-10-----------");
+		int i = 0;
+		while (i < accounts.length) {
+			System.out.println("--------------------------------------");
+			System.out.println("Thông tin account thứ " + (i + 1) + " là:");
+			System.out.println("Email: " + accounts[i].Email);
+			System.out.println("FullName: " + accounts[i].FullName);
+			System.out.println("Phòng ban: " + accounts[i].departemnt.name);
+			i++;
+		}
+
+		System.out.println("-----Question16-11-----------");
+		int i1 = 0;
+		while (i1 < departments.length) {
+			System.out.println("------------------------");
+			System.out.println("Thông tin department thứ " + (i1 + 1) + " là:");
+			System.out.println("ID: " + departments[i1].ID);
+			System.out.println("Name: " + departments[i1].name);
+			i1++;
+		}
+
+		System.out.println("-----Question16-12-----------");
+		int i2 = 0;
+		while (i2 < 2) {
+			System.out.println("------------------------");
+			System.out.println("Thông tin department thứ " + (i2 + 1) + " là:");
+			System.out.println("ID: " + departments[i2].ID);
+			System.out.println("Name: " + departments[i2].name);
+			i2++;
+		}
+
+		System.out.println("-----Question16-13-----------");
+		int i3 = 0;
+		while (i3 < accounts.length) {
+			if (i3 != 1) {
+				System.out.println("--------------------------------------");
+				System.out.println("Thông tin account thứ " + (i3 + 1) + " là:");
+				System.out.println("Email: " + accounts[i3].Email);
+				System.out.println("FullName: " + accounts[i3].FullName);
+				System.out.println("Phòng ban: " + accounts[i3].departemnt.name);
+			}
+			i3++;
+
+		}
+
+		System.out.println("-----Question16-14-----------");
+
+		int i4 = 0;
+		while (i4 < accounts.length) {
+			if (accounts[i4].ID < 4) {
+				System.out.println("--------------------------------------");
+				System.out.println("Thông tin account thứ " + (i4 + 1) + " là:");
+				System.out.println("Email: " + accounts[i4].Email);
+				System.out.println("FullName: " + accounts[i4].FullName);
+				System.out.println("Phòng ban: " + accounts[i4].departemnt.name);
+			}
+			i4++;
+		}
+
+		System.out.println("-----Question16-15-----------");
+		int i5 = 0;
+		while (i5 <= 20) {
+			if (i5 % 2 == 0) {
+				System.out.println(i5);
+			}
+			i5++;
+		}
+
+		/*
+		 * Question 17: Làm lại các Question ở phần FOR bằng cách sử dụng DO-WHILE kết
+		 * hợp với lệnh break, continue
+		 */
+
+		System.out.println("-----Question17-10-----------");
+		int j = 0;
+		do {
+			System.out.println("--------------------------------------");
+			System.out.println("Thông tin account thứ " + (j + 1) + " là:");
+			System.out.println("Email: " + accounts[j].Email);
+			System.out.println("FullName: " + accounts[j].FullName);
+			System.out.println("Phòng ban: " + accounts[j].departemnt.name);
+			j++;
+		} while (j < accounts.length);
+
+		System.out.println("-----Question17-11-----------");
+		int j1 = 0;
+		do {
+			System.out.println("------------------------");
+			System.out.println("Thông tin department thứ " + (j1 + 1) + " là:");
+			System.out.println("ID: " + departments[j1].ID);
+			System.out.println("Name: " + departments[j1].name);
+			j1++;
+		} while (j1 < departments.length);
+
+		System.out.println("-----Question17-12-----------");
+		int j2 = 0;
+		do {
+			System.out.println("------------------------");
+			System.out.println("Thông tin department thứ " + (j2 + 1) + " là:");
+			System.out.println("ID: " + departments[j2].ID);
+			System.out.println("Name: " + departments[j2].name);
+			j2++;
+		} while (j2 < 2);
+
+		System.out.println("-----Question17-13-----------");
+		int j3 = 0;
+		do {
+			if (j3 != 1) {
+				System.out.println("--------------------------------------");
+				System.out.println("Thông tin account thứ " + (j3 + 1) + " là:");
+				System.out.println("Email: " + accounts[j3].Email);
+				System.out.println("FullName: " + accounts[j3].FullName);
+				System.out.println("Phòng ban: " + accounts[j3].departemnt.name);
+			}
+			j3++;
+		} while (j3 < accounts.length);
+
+		System.out.println("-----Question17-14-----------");
+		int j4 = 0;
+		do {
+			if (accounts[j4].ID < 4) {
+				System.out.println("--------------------------------------");
+				System.out.println("Thông tin account thứ " + (j4 + 1) + " là:");
+				System.out.println("Email: " + accounts[j4].Email);
+				System.out.println("FullName: " + accounts[j4].FullName);
+				System.out.println("Phòng ban: " + accounts[j4].departemnt.name);
+			}
+			j4++;
+		} while (j4 < accounts.length);
+
+		System.out.println("-----Question17-15-----------");
+		int j5 = 0;
+		do {
+			if (j5 % 2 == 0) {
+				System.out.println(j5);
+			}
+			j5++;
+		} while (j5 <= 20);
+
 	}
 }

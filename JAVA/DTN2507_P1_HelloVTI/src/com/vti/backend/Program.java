@@ -107,6 +107,63 @@ public class Program {
 		for (int i = 0; i <= numbers.length - 1; i++) {
 			System.out.println(numbers[i]);
 		}
+		// foreach
+		System.out.println("----------------foreach--------------");
+		for (int num : numbers) {
+			System.out.println(num);
+		}
 
+		System.out.println("----------------while--------------");
+		int i = 1;
+		while (i <= 10) {
+			System.out.println(i);
+			i = i + 1;
+		}
+
+		// tỉnh tổng
+		int mang = 0;
+		int total = 0;
+		while (mang < numbers.length) {
+			total += numbers[mang];
+			mang++;
+		}
+		System.out.println(total);
+
+		System.out.println("----------------do while--------------");
+		int so = 1;
+		do {
+			System.out.println(so);
+			so++;
+		} while (so <= 10);
+
+		// in ra các số chẵn từ 0 đến 30
+		System.out.println("----------------0 đến 30 số chắn--------------");
+		int j = 0;
+		do {
+			if (j % 2 == 0) {
+				System.out.println(j);
+			}
+			j++;
+		} while (j <= 30);
+
+		System.out.println("----------------continue--------------");
+		// khi gặp continue bỏ qua lần lặp hiện tại và chuyển sang lần lặp tiếp theo
+		for (int j2 = 0; j2 <= 10; j2++) {
+			if (j2 == 5) {
+				continue;
+			}
+			System.out.println(j2);
+
+		}
+
+		System.out.println("----------------break--------------");
+		// thoát khỏi vòng lặp
+		for (int j2 = 0; j2 <= 10; j2++) {
+			if (j2 == 5) {
+				break;
+			}
+			System.out.println(j2);
+
+		}
 	}
 }
