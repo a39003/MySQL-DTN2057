@@ -8,11 +8,6 @@ import com.vti.entity.Group;
 import com.vti.entity.Position;
 
 public class Constructors {
-	public static void main(String[] args) {
-		Question1();
-		Question2();
-	}
-
 	public static void Question1() {
 		Department department = new Department();
 		Department department2 = new Department("Dep1");
