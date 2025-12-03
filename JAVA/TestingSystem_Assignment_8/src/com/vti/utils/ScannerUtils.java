@@ -4,8 +4,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-import com.vti.backend.InvalidAgeInputingException;
-
 public class ScannerUtils {
 	private static Scanner scanner = new Scanner(System.in);
 
@@ -66,7 +64,7 @@ public class ScannerUtils {
 	public static String inputString() {
 		while (true) {
 			// System.out.print("Mời bạn nhập chuỗi: ");
-			String input = scanner.nextLine().trim();
+			String input = scanner.next().trim();
 			if (!input.isEmpty()) {
 				return input;
 			}
@@ -90,16 +88,4 @@ public class ScannerUtils {
 		}
 	}
 
-	public static int intputAge() throws InvalidAgeInputingException {
-		try {
-			int age = Integer.parseInt(scanner.nextLine());
-			if (age <= 0) {
-				throw new InvalidAgeInputingException("The age must be greater than 0");
-			}
-			return age;
-
-		} catch (NumberFormatException e) {
-			throw new InvalidAgeInputingException("The age must be a number!");
-		}
-	}
 }

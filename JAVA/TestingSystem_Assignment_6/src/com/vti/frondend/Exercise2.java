@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import com.vti.backend.Exceptiond;
 import com.vti.entity.Department;
+import com.vti.entity.Group;
 import com.vti.entity.Position;
 import com.vti.utils.ScannerUtils;
 
@@ -19,7 +20,8 @@ public class Exercise2 {
 		// Question5_6();
 		// Question7();
 		// Question8();
-		Questin9();
+		// Questin9();
+		Question10();
 
 	}
 
@@ -167,6 +169,12 @@ public class Exercise2 {
 			}
 		}
 
+	}
+
+	private static void Question10() {
+		System.out.println("Tạo group");
+		Group group = new Group();
+		group.printGroup();
 	}
 
 }

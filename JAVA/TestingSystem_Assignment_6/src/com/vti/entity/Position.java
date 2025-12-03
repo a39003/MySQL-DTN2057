@@ -22,7 +22,7 @@ public class Position {
 		this.ID = countpos;
 		System.out.print("Chọn vị trí 1.Dev, 2.Test, 3.Scrum_Master, 4.PM :");
 		while (true) {
-			int chossePoss = ScannerUtils.inputInt("Nhập lại");
+			int chossePoss = ScannerUtils.intputIntPositve();
 			switch (chossePoss) {
 			case 1:
 				this.name = PositionName.Dev;
