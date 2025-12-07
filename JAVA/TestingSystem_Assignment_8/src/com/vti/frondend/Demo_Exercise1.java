@@ -8,6 +8,7 @@ public class Demo_Exercise1 {
 		// exercise1_Collectiond.Question1();
 		// exercise1_Collectiond.Question2();
 		// exercise1_Collectiond.Question3();
-		exercise1_Collectiond.Question4_5();
+		// exercise1_Collectiond.Question4_5();
+		exercise1_Collectiond.Question6_7();
 	}
 }

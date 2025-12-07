@@ -3,10 +3,12 @@ package com.vti.backend;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
@@ -18,6 +20,7 @@ public class Exercise1_Collectiond {
 
 	public static List<Student> students = new ArrayList<>();
 	public static Set<Student> students1 = new LinkedHashSet<>();
+	private static int count;
 
 	public static void Question1() {
 
@@ -353,6 +356,71 @@ public class Exercise1_Collectiond {
 		for (String s : sortedSet) {
 			System.out.println(s);
 		}
+	}
+
+	public static void Question6_7() {
+		Map<Integer, String> studentMap = new HashMap<Integer, String>();
+		int choice;
+		while (true) {
+			System.out.println("\n------MENU STUDENT (MAP)-----");
+			System.out.println("1. Tạo danh sách student theo số lượng nhập");
+			System.out.println("2. In các key của student");
+			System.out.println("3. In các vale của student");
+			System.out.println("4. In danh sách các student sắp xếp theo tên");
+			System.out.println("5. chuyển đổi map sang set");
+			System.out.println("6. thoát");
+			System.out.print("Chọn: ");
+			choice = ScannerUtils.intputIntPositve();
+
+			switch (choice) {
+			case 1:
+				System.out.print("Nhập số lượng sinh viên:");
+				int n = ScannerUtils.intputIntPositve();
+				for (int i = 0; i < n; i++) {
+					System.out.print("Nhập tên học sinh " + (i + 1) + " : ");
+					String name = ScannerUtils.inputString();
+					studentMap.put(count++, name);
+				}
+				System.out.println("-----Danh sách----");
+				for (Map.Entry<Integer, String> mapstudent : studentMap.entrySet()) {
+					System.out.println("ID: " + mapstudent.getKey() + " Name: " + mapstudent.getValue());
+				}
+
+				break;
+			case 2:
+				System.out.println("Các key trong map: ");
+				for (Map.Entry<Integer, String> student : studentMap.entrySet()) {
+					System.out.println(student.getKey());
+				}
+				break;
+			case 3:
+				System.out.println("Các value trong map: ");
+				for (Map.Entry<Integer, String> student : studentMap.entrySet()) {
+					System.out.println(student.getValue());
+				}
+				break;
+			case 4:
+				System.out.println("---Danh sách sắp xếp theo tên----");
+				studentMap.entrySet().stream().sorted(Map.Entry.comparingByValue())
+						.forEach(entry -> System.out.println("ID: " + entry.getKey() + " Name: " + entry.getValue()));
+				break;
+			case 5:
+				System.out.println("Chuyển map sang set");
+				Set<Map.Entry<Integer, String>> setStundent = studentMap.entrySet();
+				for (Map.Entry<Integer, String> entry : setStundent) {
+					System.out.println(entry);
+				}
+
+				break;
+			case 6:
+				System.out.println("Thoát chương trình.........");
+				return;
+			default:
+				System.out.println("chọn sai !");
+				break;
+			}
+		}
+
 	}
 
 }
